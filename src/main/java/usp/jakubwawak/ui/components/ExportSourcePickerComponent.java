@@ -47,6 +47,7 @@ public class ExportSourcePickerComponent {
         ArrayList<GridElement> sources = new ArrayList<>();
         sources.add(new GridElement("Wszystkie kody"));
         sources.add(new GridElement("Kody unikalne"));
+        sources.add(new GridElement("Kody powtarzające się"));
 
         ArrayList<GridElement> formats = new ArrayList<>();
         formats.add(new GridElement("TXT (Plik tekstowy)"));
@@ -94,6 +95,9 @@ public class ExportSourcePickerComponent {
                 source = 1;
             }
             case "Kody unikalne" -> {
+                source = 3;
+            }
+            case "Kody powtarzające się" ->{
                 source = 2;
             }
             default -> source = -3;

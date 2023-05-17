@@ -20,8 +20,8 @@ import java.util.Scanner;
 @EnableVaadin({"usp.jakubwawak"})
 public class SeriallApplication {
 
-	public static String version = "v1.0.0";
-	public static String build = "SLL-170523REV0";
+	public static String version = "v1.0.1";
+	public static String build = "SLL-170523REV1";
 
 	public static Database_Connector database;
 

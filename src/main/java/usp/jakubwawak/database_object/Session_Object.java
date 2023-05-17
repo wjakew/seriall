@@ -22,8 +22,12 @@ public class Session_Object implements Serializable {
     public ArrayList<String> serial_codes;
     public ArrayList<String> matching_codes;
 
+    public ArrayList<String> unique_codes;
+
     public ArrayList<GridElement> serial_codes_grid;
     public ArrayList<GridElement> matching_codes_grid;
+
+    public ArrayList<GridElement> unique_codes_grid;
 
     public LocalDateTime start_time;
 
@@ -34,8 +38,10 @@ public class Session_Object implements Serializable {
         start_time = LocalDateTime.now(ZoneId.of("Europe/Warsaw"));
         serial_codes = new ArrayList<>();
         matching_codes = new ArrayList<>();
+        unique_codes = new ArrayList<>();
         serial_codes_grid = new ArrayList<>();
         matching_codes_grid = new ArrayList<>();
+        unique_codes_grid = new ArrayList<>();
     }
 
     /**
@@ -43,14 +49,27 @@ public class Session_Object implements Serializable {
      * @param code
      */
     public void add_serialcode(String code){
-        if ( serial_codes.contains(code)){
+        if ( serial_codes.contains(code) ){
             if ( !matching_codes.contains(code)){
                 matching_codes.add(code);
                 matching_codes_grid.add(new GridElement(code));
+                unique_codes.remove(code);
+
+                unique_codes_grid.clear();
+
+                for(String element : unique_codes){
+                    unique_codes_grid.add(new GridElement(element));
+                }
             }
         }
-        serial_codes.add(code);
-        serial_codes_grid.add(new GridElement(code));
+        else{
+            serial_codes.add(code);
+            unique_codes.add(code);
+
+            serial_codes_grid.add(new GridElement(code));
+            unique_codes_grid.add(new GridElement(code));
+        }
+
     }
 
     /**
@@ -59,9 +78,9 @@ public class Session_Object implements Serializable {
      */
     public void remove_serialcode(String code){
         serial_codes.remove(code);
-        if (matching_codes.contains(code)){
-            matching_codes.remove(code);
-        }
+        matching_codes.remove(code);
+        unique_codes.remove(code);
+
         serial_codes_grid.clear();
         for(String element : serial_codes){
             serial_codes_grid.add(new GridElement(element));
@@ -69,6 +88,11 @@ public class Session_Object implements Serializable {
         matching_codes_grid.clear();
         for(String element : matching_codes){
             matching_codes_grid.add(new GridElement(element));
+        }
+
+        unique_codes_grid.clear();
+        for(String element : unique_codes){
+            unique_codes_grid.add(new GridElement(element));
         }
     }
 
@@ -86,8 +110,10 @@ public class Session_Object implements Serializable {
     public void clear(){
         serial_codes.clear();
         matching_codes.clear();
+        unique_codes.clear();
         serial_codes_grid.clear();;
         matching_codes_grid.clear();
+        unique_codes_grid.clear();
     }
 
     /**
@@ -126,6 +152,10 @@ public class Session_Object implements Serializable {
                 case 2 -> {
                     // source set to matched codes
                     source_collection = matching_codes;
+                }
+                case 3 ->{
+                    // source set to unique codes
+                    source_collection = unique_codes;
                 }
             }
 

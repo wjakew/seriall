@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>usp.jakubwawak</groupId>
 	<artifactId>seriall</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>seriall</name>
 	<description>App for checking serial codes</description>
 	<properties>
