@@ -9,6 +9,7 @@ import com.vaadin.flow.spring.annotation.EnableVaadin;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import usp.jakubwawak.database.Database_Connector;
+import usp.jakubwawak.database.Database_ConnectorUpdater;
 import usp.jakubwawak.database_object.Session_Object;
 import usp.jakubwawak.ui.views.HomeView;
 
@@ -20,8 +21,8 @@ import java.util.Scanner;
 @EnableVaadin({"usp.jakubwawak"})
 public class SeriallApplication {
 
-	public static String version = "v1.0.1";
-	public static String build = "SLL-170523REV1";
+	public static String version = "v1.0.2";
+	public static String build = "SLL-260523REV1";
 
 	public static Database_Connector database;
 
@@ -47,6 +48,9 @@ public class SeriallApplication {
 			database.connect();
 			if (database.connected){
 				database.log("APPLICATION-CONNECTION","Connected to database!");
+				Runnable database_reconnector = new Database_ConnectorUpdater(21600000);
+				Thread database_recoonnector_thread = new Thread(database_reconnector);
+				database_recoonnector_thread.start();
 				SpringApplication.run(SeriallApplication.class, args);
 			}
 		}

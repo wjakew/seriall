@@ -46,6 +46,14 @@ public class Database_Connector {
     }
 
     /**
+     * Function for checking if object has correct connection data
+     * @return boolean
+     */
+    public boolean validate_object(){
+        return !user.equals("") && !password.equals("") && !name.equals("") && !ip.equals("");
+    }
+
+    /**
      * Function for connecting service to local database
      */
     public void connect(){
